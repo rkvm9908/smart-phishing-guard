@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {# Display different title based on whether the 'user' variable is passed (Admin route) or not (User History route) #}
+    {% if user is defined %}
+        User Logs for {{ user.username }} | URL Detector
+    {% else %}
+        My Scan History | URL Detector
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {# Heading changes based on the context (User vs. Admin view) #}
+    
+    
+    <div class="log-table-container">
+        <h2 style="margin-left: 5%;"><i class="fas fa-user-shield"></i> Scan Logs for User: {{ user.username }}</h2>
+        <table style="width:90%; margin-left: 5%;">
+            <thead>
+                <tr>
+                    <th>Time (IST)</th>
+                    <th>URL</th>
+                    <th>Prediction</th>
+                    <th>Phishing Prob</th>
+                    <th>Safety Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in logs %}
+                {# Adding a class based on prediction for CSS styling (e.g., green for benign, red for phishing) #}
+                {% set row_class = r.prediction | lower %} 
+                <tr class="{{ row_class }}">
+                    {# 'ist_time' is the Jinja filter you defined in app.py #}
+                    <td>{{ r.timestamp | ist_time }}</td>
+                    <td>
+                        <a href="{{ r.url }}" target="_blank" rel="noopener noreferrer">{{ r.url }}</a>
+                    </td>
+                    
+                    {# Enhanced Prediction column with icons #}
+                    <td>
+                        {% if r.prediction == 'phishing' %}
+                            <span class="pred-phishing"><i class="fas fa-triangle-exclamation"></i> PHISH</span>
+                        {% else %}
+                            <span class="pred-benign"><i class="fas fa-check-circle"></i> LEGIT</span>
+                        {% endif %}
+                    </td>
+                    
+                    {# Formatting the percentage values #}
+                    <td class="prob">{{ "%.2f"|format(r.prob_phishing*100) }}%</td>
+                    <td class="safety">{{ "%.2f"|format(r.safety_score) }}%</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 20px;">No scan records found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if user is defined %}
+        <p class="admin-link-back"><a href="{{ url_for('admin_users') }}">← Back to Admin User List</a></p>
+    {% else %}
+        <h2><i class="fas fa-history"></i> My Scan History</h2>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    {% endblock %}

@@ -1,0 +1,101 @@
+
+{% extends "base.html" %}
+{% block title %}Scan History{% endblock %}
+
+{% block content %} <link rel="stylesheet" href="{{url_for('static',filename='css/dash.css') }}">
+    <div class="wrap">
+        <div class="card">
+            <h1>Model Metrics</h1>
+            <div class="small">Metrics loaded from backend</div>
+            <pre>{{ metrics | tojson(indent=2) }}</pre>
+        </div>
+        <div class="card">
+            <h1>Recent Safety Trend</h1>
+            {% if safety_series %}
+                    <canvas id="trendChart"></canvas>
+            {% else %}
+                <div class="no-data-message">
+                    <p>
+                        <b>No scan data found for your account.</b> <br> 
+                        <i>Please use the scanner on the homepage to generate data for the trend chart.</i> 
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+        <center>
+        <a class="back-btn" href="/">⬅ Back to Scanner</a>
+    </center>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    // Wrap the Jinja JSON output in quotes and parse in JS
+    window.SAFETY_DATA = JSON.parse('{{ safety_series | tojson | safe }}');
+</script>
+<script>
+    // 1. DATA PREPARATION
+    window.SAFETY_DATA = JSON.parse('{{ safety_series | tojson | safe }}');
+    
+    // draw trend chart
+    const safety = window.SAFETY_DATA || [];
+    
+    // Use toLocaleDateString() to show DATE ONLY (as requested)
+    const labels = safety.map(x => new Date(x.timestamp).toLocaleDateString()); 
+    const values = safety.map(x => x.safety_score || 0);
+
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    
+    // 2. CHART RENDERING
+    new Chart(ctx, {
+        type: 'line',
+        data: { 
+            labels: labels, 
+            datasets: [{ 
+                label: 'Safety Score', 
+                data: values, 
+                borderColor: '#7c5cff', 
+                backgroundColor: 'rgba(124,92,255,0.12)', 
+                fill: true 
+            }] 
+        },
+        options: { 
+            scales: { 
+                // --- Y-Axis Configuration (Vertical Axis) ---
+                y: { 
+                    min: 0, 
+                    max: 100,
+                    // *** ADDED: Y-Axis Title ***
+                    title: {
+                        display: true,
+                        text: 'Model Safety Score (%)',
+                        color: '#9fc2ff' 
+                    }
+                },
+                // --- X-Axis Configuration (Horizontal Axis) ---
+                x: {
+                    // *** ADDED: X-Axis Title ***
+                    title: {
+                        display: true,
+                        text: 'Scan Date',
+                        color: '#9fc2ff' 
+                    },
+                    ticks: {
+                        display: true, 
+                        maxRotation: 45, 
+                        minRotation: 45 
+                    }
+                }
+                // --------------------------------------------
+            }, 
+            plugins: { 
+                legend: { 
+                    display: false 
+                } 
+            } 
+        }
+    });
+</script>
+{% endblock %}
+    

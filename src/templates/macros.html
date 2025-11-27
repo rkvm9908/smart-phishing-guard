@@ -1,0 +1,24 @@
+{% macro render_flashes() %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class=flashes>
+<ul >
+    {% for category, message in messages %}
+    <li class="{{ category }}">
+        {# Icon logic for professional toast #}
+        {% if category == 'success' %}
+        <i class="fas fa-check-circle"></i>
+        {% elif category == 'error' %}
+        <i class="fas fa-triangle-exclamation"></i>
+        {% elif category == 'info' %}
+        <i class="fas fa-info-circle"></i>
+        {% endif %}
+        <span class="message-content">{{ message }}</span>
+    </li>
+    {% endfor %}
+</ul>
+</div>
+
+{% endif %}
+{% endwith %}
+{% endmacro %}

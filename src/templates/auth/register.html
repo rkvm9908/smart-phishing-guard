@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="wrap">
+    <div class="auth-card card">
+        <h1>🔐 Create Account</h1>
+        
+        <form method="post" class="auth-form">
+            <input name="username" type="text" placeholder="Username" required />
+            <input name="email" type="email" placeholder="Email" required />
+            <input name="password" type="password" placeholder="Password" required />
+            <button type="submit">Register</button>
+        </form>
+        
+        <p class="auth-footer">Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    {% endblock %}

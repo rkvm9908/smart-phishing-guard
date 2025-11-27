@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %} Phishing URL Scanner{% endblock %}
+{% block content %}
+<div class="wrap">
+    <div class="card">
+        <h1>🔍 Phishing URL Detector — Scan</h1>
+
+        <form method="POST" id="scanForm">
+            <input id="urlInput" type="text" name="url" placeholder="Enter URL (e.g. https://example.com/login)" required>
+            <button type="submit">Check URL</button>
+        </form>
+
+        <div class="gauge">
+            <div class="meter">
+                <div id="gauge"></div>
+                <div class="val" id="gauge_val">
+                    {% if safety_score is not none %}
+                        {{ safety_score | round(1) }}%
+                    {% else %}
+                        —
+                    {% endif %}
+                </div>
+            </div>
+
+            <div style="flex:1">
+                <div id="resultBox" class="result" style="display:none"></div>
+                <div class="meta">
+                    <div id="probBox">Probability: 
+                        {% if probability is not none %}
+                            {{ probability | round(4) }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </div>
+                    <div id="timeBox">—</div> {# This will be updated by index.js #}
+                </div>
+            </div>
+        </div>
+        <div style="margin-top:20px; text-align: center; font-size:14px; color:var(--text-color)">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{{ super() }}
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+{% endblock %}

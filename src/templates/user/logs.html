@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>My Logs</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/hist.css') }}">
+</head>
+
+<body>
+    <h2>My Scan Log History</h2>
+    <table>
+        <tr>
+            <th>Time</th>
+            <th>URL</th>
+            <th>Prediction</th>
+            <th>Prob</th>
+            <th>Safety</th>
+        </tr>
+        {% for r in logs %}
+        <tr>
+            <td>{{ r.timestamp | ist_time }}</td>
+            <td>{{ r.url }}</td>
+            <td>{{ r.prediction }}</td>
+            <td>{{ "%.2f"|format(r.prob_phishing*100) }}%</td>
+            <td>{{ "%.2f"|format(r.safety_score) }}%</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

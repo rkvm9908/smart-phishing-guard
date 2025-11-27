@@ -1,0 +1,107 @@
+:root {
+    --accent: #7c5cff; 
+    --legit-color: #30e698; 
+    --phishing-color: #ff6699;
+    --text-color: #e9eef8;
+    --light-text: #bcd2ff;
+    --bg: #0f1020;
+    --glass: rgba(255, 255, 255, 0.06);
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand a {
+    color: var(--accent);
+    font-size: 1.6em;
+    font-weight: 700;
+    text-shadow: 0 0 5px rgba(124, 92, 255, 0.8); 
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-links a {
+    color: var(--light-text);
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+.navbar-links a:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--accent);
+}
+.navbar-links .user-greeting {
+    color: var(--legit-color);
+    font-weight: 600;
+    margin-right: 10px;
+    font-size: 0.95em;
+    text-shadow: 0 0 3px rgba(48, 230, 152, 0.3);
+}
+.btn-login, .btn-register {
+    display: inline-block;
+    padding: 10px 5px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--accent), #5aa8ff);
+    color: black !important;
+    font-weight: 900;
+    transition: 0.25s;
+    text-decoration: none;
+}
+.btn-login:hover, .btn-register:hover {
+    background: #5aa8ff;
+    box-shadow: 0 0 8px rgba(122, 167, 255, 0.8);
+    color: white !important;
+}
+
+.btn-logout {
+    color: var(--phishing-color) !important;
+    border: 1px solid var(--phishing-color);
+    background-color: transparent !important;
+    padding: 5px 10px !important;
+}
+.btn-logout:hover {
+    background-color: var(--phishing-color) !important;
+    color: white !important;
+    box-shadow: 0 0 8px var(--phishing-color);
+}
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .navbar-links {
+        width: 100%;
+        justify-content: space-around;
+        margin-top: 10px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .navbar-links a {
+        flex-grow: 1;
+        text-align: center;
+    }
+    .navbar-links .user-greeting {
+        order: -1;
+        margin-bottom: 5px;
+        width: 100%;
+        text-align: center;
+    }
+}

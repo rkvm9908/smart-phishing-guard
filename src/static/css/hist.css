@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+:root {
+    --accent: #7c5cff; 
+    --legit-color: #30e698; 
+    --phishing-color: #ff6699;
+    --text-color: #e9eef8;
+    --light-text: #bcd2ff;
+    --bg: #0f1020;
+    --glass: rgba(255, 255, 255, 0.06);
+}
+.table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+thead {
+    background: rgba(124, 92, 255, 0.1); 
+}
+th, td {
+    padding: 12px 18px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+th {
+    font-weight: 600;
+    color: var(--light-text);
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+.status {
+    font-weight: 700;
+    font-size: 0.9em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-align: center !important;
+}
+.safe {
+    background: rgba(48, 230, 152, 0.15); 
+    color: var(--legit-color);
+}
+.danger {
+    background: rgba(255, 102, 153, 0.1);
+    color: var(--phishing-color);
+}
+.url {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+.back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--accent), #5aa8ff);
+    color: black !important;
+    font-weight: 700;
+    transition: 0.25s;
+    text-decoration: none;
+}
+.back-btn:hover {
+    background: #5aa8ff;
+    box-shadow: 0 0 8px rgba(122, 167, 255, 0.8);
+    color: white !important;
+}
+.no-data-msg {
+    text-align: center;
+    padding: 30px;
+    color: var(--light-text);
+    font-style: italic;
+}
+@media (max-width: 768px) {
+    th, td {
+        padding: 8px 10px;
+    }
+    .url {
+        max-width: 200px;
+    }
+}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Scan History{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/hist.css') }}">
+<div class="wrap" style=" display: block;">
+    <div class="card" style="width: 100%; max-width: none;">
+        <h1>📜 My Scan History</h1>
+        
+        {% if logs %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>URL</th>
+                        <th>Prediction</th>
+                        <th>Phish %</th>
+                        <th>Safety %</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in logs %} 
+                    <tr>
+                        <td>{{ row.timestamp | ist_time }}</td>
+                        <td class="url">{{ row.url | truncate(70, True) }}</td>
+
+                        {% if row.prediction == "legit" %}
+                        <td class="status safe">LEGIT</td>
+                        {% else %}
+                        <td class="status danger">PHISHING</td>
+                        {% endif %}
+
+                        <td>{{ "%.2f"|format(row.prob_phishing * 100) }}%</td>
+                        <td>{{ "%.2f"|format(row.safety_score) }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="no-data-msg">No scan history found. Scan a URL on the home page!</p>
+        {% endif %}
+
+        <center style="margin-top: 30px;">
+            <a class="back-btn" href="{{ url_for('index') }}">⬅ Back to Scanner</a>
+        </center>
+    </div>
+</div>
+{% endblock %}

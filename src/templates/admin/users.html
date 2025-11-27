@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Admin User Management | URL Detector{% endblock %}
+
+{% block content %}
+
+<div class="log-table-container">
+    <h2><i class="fas fa-users-cog"></i> All Registered Users</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Admin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            {# Highlight admin rows optionally using CSS based on is_admin status #}
+            <tr class="{% if u.is_admin %}admin-user-row{% endif %}">
+                <td>{{ u.id }}</td>
+                <td>{{ u.username }}</td>
+                <td>{{ u.email }}</td>
+                {# Displaying the Admin status clearly #}
+                <td>
+                    {% if u.is_admin %}
+                    <span class="pred-phishing"><i class="fas fa-crown"></i> YES</span>
+                    {% else %}
+                    <span class="pred-benign">NO</span>
+                    {% endif %}
+                </td>
+                {# Link to view this user's specific logs #}
+                <td>
+                    <a href="{{ url_for('admin_user_logs', user_id=u.id) }}" class="action-link">
+                        <i class="fas fa-file-lines"></i> View Logs
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <p class="admin-link-back"><a href="{{ url_for('index') }}">← Back to Dashboard</a></p>
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    {% endblock %}
