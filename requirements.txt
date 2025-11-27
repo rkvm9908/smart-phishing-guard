@@ -5,6 +5,7 @@ Flask==3.1.2
 Flask-Login==0.6.3
 Flask-WTF==1.2.2
 SQLAlchemy==2.0.44
+matplotlib==3.8.4
 
 # ----------------------------------------------------
 # CORE MACHINE LEARNING & DATA HANDLING
@@ -26,4 +27,5 @@ beautifulsoup4==4.12.2
 Werkzeug>=3.1.0
 email-validator==2.1.0.post1
 gunicorn==21.2.0
+
 
