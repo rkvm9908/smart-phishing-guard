@@ -3,7 +3,7 @@
 import os
 import json
 # Import the model and the global timezone placeholder
-from models import URLLog, User, Base
+from .models import URLLog, User, Base
 import pandas as pd # Still useful for pandas operations if needed
 
 
@@ -11,7 +11,7 @@ import random
 import smtplib
 from email.message import EmailMessage
 from werkzeug.security import generate_password_hash
-from models import User
+from .models import User
 
 # Flask Core Imports
 from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
@@ -19,7 +19,7 @@ from werkzeug.security import generate_password_hash
 
 # ML/Data Imports
 from joblib import load
-from extract_features import extract_features
+from .extract_features import extract_features
 
 # Database and Auth Imports
 from sqlalchemy import create_engine
@@ -390,3 +390,4 @@ def static_files(filename):
 if __name__ == "__main__":
     app.run(debug=True)
     
+
