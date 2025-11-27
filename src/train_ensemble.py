@@ -30,7 +30,7 @@ df = df.rename(columns={'url': 'URL', 'type': 'label_name'})
 
 # Map the string labels to their canonical string names (phishing/legit)
 # இது 'legitimate', 'safe', 'phishing', 'malicious' போன்ற உள்ளீடுகளைக் கையாள்கிறது
-df['label_name'] = df['label_name'].str.lower().replace({
+df['label'] = df['label'].str.lower().replace({
     'legitimate': 'legit', 
     'safe': 'legit', 
     'phishing': 'phishing',
@@ -38,7 +38,7 @@ df['label_name'] = df['label_name'].str.lower().replace({
     'bad': 'phishing' 
 })
 # Create the numerical label column based on the string label
-df['label'] = df['label_name'].apply(lambda x: 1 if x == 'phishing' else 0)
+df['label'] = df['label'].apply(lambda x: 1 if x == 'phishing' else 0)
 
 # CRITICAL STEP: Extract 7 features for all URLs using your function
 print("Extracting 7 features from all URLs...")
@@ -60,11 +60,11 @@ print(f"Original class distribution:\n{df['label'].value_counts()}")
 
 # 1. Map the numerical labels (0 and 1) to their descriptive string names
 # This is CRUCIAL for creating the 'label_name' column that the rest of the script relies on.
-df['label_name'] = df['label'].apply(lambda x: 'phishing' if x == 1 else 'legit')
+df['label'] = df['label'].apply(lambda x: 'phishing' if x == 1 else 'legit')
 
 # 2. Separate majority and minority classes using the new string column
-ph_df = df[df["label_name"] == "phishing"]
-lg_df = df[df["label_name"] == "legit"]
+ph_df = df[df["label"] == "phishing"]
+lg_df = df[df["label"] == "legit"]
 
 # Identify minority and majority class
 if len(ph_df) < len(lg_df):
@@ -206,4 +206,5 @@ plt.savefig("src/static/img/accuracy.png", dpi=200, bbox_inches="tight")
 plt.close()
 
 print("Accuracy plot saved: src/static/img/accuracy.png")
+
 
