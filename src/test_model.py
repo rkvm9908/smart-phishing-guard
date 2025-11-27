@@ -1,6 +1,6 @@
 import pandas as pd
 from joblib import load
-from extract_features import extract_features 
+from .extract_features import extract_features 
 
 # --- Load Model and Preprocessing Objects ---
 try:
@@ -32,4 +32,5 @@ result_label = label_encoder.inverse_transform([pred_int])[0]
 
 print("\n--- URL Safety Result ---")
 print(f"URL: {url}")
+
 print(f"Prediction: **{result_label.upper()}**")
