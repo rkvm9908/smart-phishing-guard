@@ -13,7 +13,7 @@ from sklearn.ensemble import RandomForestClassifier, VotingClassifier
 
 from xgboost import XGBClassifier
 # Assuming 'extract_features' is defined in 'extract_features.py'
-from .extract_features import extract_features 
+from extract_features import extract_features 
 
 # --- 1. Setup and Load Data (FIXED DELIMITER) ---
 os.makedirs("models", exist_ok=True)
@@ -206,3 +206,4 @@ plt.savefig("src/static/img/accuracy.png", dpi=200, bbox_inches="tight")
 plt.close()
 
 print("Accuracy plot saved: src/static/img/accuracy.png")
+
