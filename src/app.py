@@ -19,7 +19,7 @@ from werkzeug.security import generate_password_hash
 
 # ML/Data Imports
 from joblib import load
-from .extract_features import extract_features
+from extract_features import extract_features
 
 # Database and Auth Imports
 from sqlalchemy import create_engine
@@ -390,4 +390,5 @@ def static_files(filename):
 if __name__ == "__main__":
     app.run(debug=True)
     
+
 
