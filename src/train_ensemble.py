@@ -105,7 +105,7 @@ SELECTED_FEATURE_COLUMNS = [
 
 # X variables: Select ONLY the 7 common features
 X = df_balanced[SELECTED_FEATURE_COLUMNS]
-y = df_balanced['label_name'] 
+y = df_balanced['label'] 
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, 
@@ -206,5 +206,6 @@ plt.savefig("src/static/img/accuracy.png", dpi=200, bbox_inches="tight")
 plt.close()
 
 print("Accuracy plot saved: src/static/img/accuracy.png")
+
 
 
