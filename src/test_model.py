@@ -1,6 +1,6 @@
 import pandas as pd
 from joblib import load
-from .extract_features import extract_features 
+from extract_features import extract_features 
 
 # --- Load Model and Preprocessing Objects ---
 try:
@@ -34,3 +34,4 @@ print("\n--- URL Safety Result ---")
 print(f"URL: {url}")
 
 print(f"Prediction: **{result_label.upper()}**")
+
