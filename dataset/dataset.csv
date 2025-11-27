@@ -1,4 +1,4 @@
-url,label
+url,label_name
 http://www.crestonwood.com/router.php,legitimate
 http://shadetreetechnology.com/V4/validation/a111aedc8ae390eabcfa130e041a10a4,phishing
 https://support-appleld.com.secureupdate.duilawyeryork.com/ap/89e6a3b4b063b8d/?cmd=_update&dispatch=89e6a3b4b063b8d1b&locale=_,phishing
@@ -11429,3 +11429,4 @@ http://www.budgetbots.com/server.php/Server%20update/index.php?email=USER@DOMAIN
 https://www.facebook.com/Interactive-Television-Pvt-Ltd-Group-M-100230523435650/photos/?ref=page_internal,legitimate
 http://www.mypublicdomainpictures.com/,legitimate
 http://174.139.46.123/ap/signin?openid.pape.max_auth_age=0&amp;openid.return_to=https%3A%2F%2Fwww.amazon.co.jp%2F%3Fref_%3Dnav_em_hd_re_signin&amp;openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&amp;openid.assoc_handle=jpflex&amp;openid.mode=checkid_setup&amp;key=a@b.c&amp;openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&amp;openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&amp;&amp;ref_=nav_em_hd_clc_signin,phishing
+
