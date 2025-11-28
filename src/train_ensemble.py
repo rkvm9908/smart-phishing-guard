@@ -33,16 +33,16 @@ all_csv_files = glob.glob(os.path.join(DATA_FOLDER, '*.csv'))
 df_list = []
 
 if not all_csv_files:
-    print("FATAL ERROR: No CSV files found. Exiting.")
-    exit()
+    print("FATAL ERROR: No CSV files found. Exiting.")
+    exit()
 
 for file_path in all_csv_files:
     try:
-        df_chunk = pd.read_csv(file_path)
-        df_list.append(df_chunk)
-        print(f"Loaded {os.path.basename(file_path)} with {len(df_chunk)} rows.")
+        df_chunk = pd.read_csv(file_path)
+        df_list.append(df_chunk)
+        print(f"Loaded {os.path.basename(file_path)} with {len(df_chunk)} rows.")
     except Exception as e:
-        print(f"ERROR: Could not load {os.path.basename(file_path)}. {e}")
+        print(f"ERROR: Could not load {os.path.basename(file_path)}. {e}")
 
 df = pd.concat(df_list, ignore_index=True)
 print(f"Total rows in combined dataset: {len(df)}")
@@ -208,6 +208,7 @@ plt.savefig(os.path.join(IMG_DIR, "accuracy.png"), dpi=200, bbox_inches="tight")
 plt.close()
 
 print(f"Accuracy plot saved: {IMG_DIR}/accuracy.png")
+
 
 
 
