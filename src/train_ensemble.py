@@ -24,7 +24,6 @@ IMG_DIR = os.path.join(BASE_DIR, 'static', 'img')
 DATA_FOLDER = os.path.join(BASE_DIR, 'dataset') 
 
 # Create necessary directories
-os.makedirs(MODEL_DIR, exist_ok=True)
 os.makedirs(IMG_DIR, exist_ok=True)
 
 
@@ -208,5 +207,6 @@ plt.savefig(os.path.join(IMG_DIR, "accuracy.png"), dpi=200, bbox_inches="tight")
 plt.close()
 
 print(f"Accuracy plot saved: {IMG_DIR}/accuracy.png")
+
 
 
