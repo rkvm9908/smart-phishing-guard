@@ -18,10 +18,10 @@ from extract_features import extract_features
 # Define correct directories based on project structure (src/model/, src/static/)
 # Note: Changing MODEL_DIR to 'model' as per project structure requirement, not 'models'
 os.makedirs("models", exist_ok=True)
-DATA_FOLDER = os.makedirs("dataset", exist_ok=True)
+os.makedirs("dataset", exist_ok=True)
 
 # Load dataset: Combine all CSVs from DATA_FOLDER
-all_csv_files = glob.glob(os.path.join(DATA_FOLDER, '*.csv'))
+all_csv_files = glob.glob(os.path.join('dataset', '*.csv'))
 df_list = []
 
 if not all_csv_files:
@@ -188,3 +188,4 @@ metrics = {
 }
 with open("models/ensemble_metrics.json", "w") as f:
     json.dump(metrics, f, indent=4)
+
