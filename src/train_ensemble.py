@@ -40,10 +40,10 @@ df = pd.concat(df_list, ignore_index=True)
 print(f"Total rows in combined dataset: {len(df)}")
 
 df.columns = df.columns.str.lower().str.strip()
-df = df.rename(columns={'url': 'URL', 'type': 'label'})
-df['label'] = df['label'].astype(str)
+df = df.rename(columns={'url': 'URL', 'type': 'label-name'})
+df['label-name'] = df['label-name'].astype(str)
 # Map the string labels to their canonical string names (phishing/legit)
-df['label'] = df['label'].str.lower().replace({
+df['label-name'] = df['label-name'].str.lower().replace({
     'legitimate': 'legit', 
     'safe': 'legit', 
     'phishing': 'phishing',
@@ -51,7 +51,7 @@ df['label'] = df['label'].str.lower().replace({
     'bad': 'phishing' 
 })
 # Create the numerical label column based on the string label
-df['label'] = df['label'].apply(lambda x: 1 if x == 'phishing' else 0)
+df['label'] = df['label-name'].apply(lambda x: 1 if x == 'phishing' else 0)
 
 # CRITICAL STEP: Extract 7 features for all URLs using your function
 print("Extracting 7 features from all URLs...")
@@ -68,10 +68,10 @@ print(f"Feature extraction complete. Total dataset size: {len(df)}")
 print(f"Original class distribution:\n{df['label'].value_counts()}")
 
 # --- 2. Balance Classes using Oversampling ---
-df['label'] = df['label'].apply(lambda x: 'phishing' if x == 1 else 'legit')
+df['label-name'] = df['label'].apply(lambda x: 'phishing' if x == 1 else 'legit')
 
-ph_df = df[df["label"] == "phishing"]
-lg_df = df[df["label"] == "legit"]
+ph_df = df[df["label-name"] == "phishing"]
+lg_df = df[df["label-name"] == "legit"]
 
 if len(ph_df) < len(lg_df):
     min_df = ph_df
@@ -106,7 +106,7 @@ SELECTED_FEATURE_COLUMNS = [
 ]
 
 X = df_balanced[SELECTED_FEATURE_COLUMNS]
-y = df_balanced['label'] 
+y = df_balanced['label-name'] 
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, 
@@ -188,5 +188,6 @@ metrics = {
 }
 with open("models/ensemble_metrics.json", "w") as f:
     json.dump(metrics, f, indent=4)
+
 
 
