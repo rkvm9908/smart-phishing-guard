@@ -15,17 +15,10 @@ from extract_features import extract_features
 
 # --- 1. Setup and Load Data (Multi-File Loading Implementation) ---
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
-
 # Define correct directories based on project structure (src/model/, src/static/)
 # Note: Changing MODEL_DIR to 'model' as per project structure requirement, not 'models'
 os.makedirs("models", exist_ok=True)
-IMG_DIR = os.path.join(BASE_DIR, 'static', 'img')
-DATA_FOLDER = os.path.join(BASE_DIR, 'dataset') 
-
-# Create necessary directories
-os.makedirs(IMG_DIR, exist_ok=True)
-
+DATA_FOLDER = os.makedirs("dataset", exist_ok=True)
 
 # Load dataset: Combine all CSVs from DATA_FOLDER
 all_csv_files = glob.glob(os.path.join(DATA_FOLDER, '*.csv'))
@@ -193,20 +186,5 @@ metrics = {
     "ensemble_cv_mean": float(scores.mean()),
     "ensemble_test_accuracy": float(acc)
 }
-with open(os.path.join(MODEL_DIR, "ensemble_metrics.json"), "w") as f:
+with open("models/ensemble_metrics.json", "w") as f:
     json.dump(metrics, f, indent=4)
-print(f"Metrics saved: {MODEL_DIR}/ensemble_metrics.json")
-
-# Accuracy plot - Corrected Path
-plt.figure(figsize=(6,4))
-plt.bar(["Ensemble Accuracy"], [acc], color='skyblue')
-plt.ylim(0.9, 1.0) 
-plt.title("Ensemble Model Test Accuracy")
-plt.ylabel("Accuracy")
-plt.savefig(os.path.join(IMG_DIR, "accuracy.png"), dpi=200, bbox_inches="tight")
-plt.close()
-
-print(f"Accuracy plot saved: {IMG_DIR}/accuracy.png")
-
-
-
