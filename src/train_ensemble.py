@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
+import glob
 from joblib import dump
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import LabelEncoder, StandardScaler
@@ -23,10 +23,28 @@ os.makedirs("src/static/img", exist_ok=True)
 
 # *** உங்கள் புதிய CSV கோப்பு பெயரை இங்கே மாற்றவும் ***
 # Load dataset: Assuming your new CSV has columns: 'url' and 'type'
-df = pd.read_csv("dataset/dataset.csv") 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_FOLDER = os.path.join(BASE_DIR, 'data_chunks') 
+all_csv_files = glob.glob(os.path.join(DATA_FOLDER, '*.csv'))
+df_list = []
 
-# Rename columns for consistency
-df = df.rename(columns={'url': 'URL', 'type': 'label_name'})
+if not all_csv_files:
+    print("FATAL ERROR: No CSV files found. Exiting.")
+    exit()
+
+for file_path in all_csv_files:
+    try:
+        df_chunk = pd.read_csv(file_path)
+        df_list.append(df_chunk)
+        print(f"Loaded {os.path.basename(file_path)} with {len(df_chunk)} rows.")
+    except Exception as e:
+        print(f"ERROR: Could not load {os.path.basename(file_path)}. {e}")
+
+df = pd.concat(df_list, ignore_index=True)
+print(f"Total rows in combined dataset: {len(df)}")
+
+df.columns = df.columns.str.lower().str.strip()
+df = df.rename(columns={'url': 'URL', 'type': 'label'})
 
 # Map the string labels to their canonical string names (phishing/legit)
 # இது 'legitimate', 'safe', 'phishing', 'malicious' போன்ற உள்ளீடுகளைக் கையாள்கிறது
@@ -206,6 +224,7 @@ plt.savefig("src/static/img/accuracy.png", dpi=200, bbox_inches="tight")
 plt.close()
 
 print("Accuracy plot saved: src/static/img/accuracy.png")
+
 
 
 
