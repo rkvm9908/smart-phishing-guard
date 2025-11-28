@@ -241,7 +241,7 @@ all_csv_files = glob.glob(os.path.join(DATA_FOLDER, '*.csv'))
 df_list = []
 
 if not all_csv_files:
-    print("FATAL ERROR: No CSV files found. Exiting.")
+    print("FATAL ERROR: No CSV files found. Exiting.")
     exit()
 
 for file_path in all_csv_files:
@@ -416,6 +416,7 @@ plt.savefig(os.path.join(IMG_DIR, "accuracy.png"), dpi=200, bbox_inches="tight")
 plt.close()
 
 print(f"Accuracy plot saved: {IMG_DIR}/accuracy.png")
+
 
 
 
