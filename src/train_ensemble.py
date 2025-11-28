@@ -242,15 +242,15 @@ df_list = []
 
 if not all_csv_files:
     print("FATAL ERROR: No CSV files found. Exiting.")
-    exit()
+    exit()
 
 for file_path in all_csv_files:
-    try:
-        df_chunk = pd.read_csv(file_path)
-        df_list.append(df_chunk)
-        print(f"Loaded {os.path.basename(file_path)} with {len(df_chunk)} rows.")
-    except Exception as e:
-        print(f"ERROR: Could not load {os.path.basename(file_path)}. {e}")
+    try:
+        df_chunk = pd.read_csv(file_path)
+        df_list.append(df_chunk)
+        print(f"Loaded {os.path.basename(file_path)} with {len(df_chunk)} rows.")
+    except Exception as e:
+        print(f"ERROR: Could not load {os.path.basename(file_path)}. {e}")
 
 df = pd.concat(df_list, ignore_index=True)
 print(f"Total rows in combined dataset: {len(df)}")
@@ -260,11 +260,11 @@ df = df.rename(columns={'url': 'URL', 'type': 'label'})
 
 # Map the string labels to their canonical string names (phishing/legit)
 df['label'] = df['label'].str.lower().replace({
-    'legitimate': 'legit', 
-    'safe': 'legit', 
-    'phishing': 'phishing',
-    'malicious': 'phishing',
-    'bad': 'phishing' 
+    'legitimate': 'legit', 
+    'safe': 'legit', 
+    'phishing': 'phishing',
+    'malicious': 'phishing',
+    'bad': 'phishing' 
 })
 # Create the numerical label column based on the string label
 df['label'] = df['label'].apply(lambda x: 1 if x == 'phishing' else 0)
@@ -273,8 +273,8 @@ df['label'] = df['label'].apply(lambda x: 1 if x == 'phishing' else 0)
 print("Extracting 7 features from all URLs...")
 extracted_features_list = []
 for url in df['URL']:
-    features = extract_features(url) 
-    extracted_features_list.append(features.iloc[0].to_dict())
+    features = extract_features(url) 
+    extracted_features_list.append(features.iloc[0].to_dict())
 
 # Convert the list of dictionaries back to a DataFrame and combine with the original data
 df_features = pd.DataFrame(extracted_features_list)
@@ -290,11 +290,11 @@ ph_df = df[df["label"] == "phishing"]
 lg_df = df[df["label"] == "legit"]
 
 if len(ph_df) < len(lg_df):
-    min_df = ph_df
-    max_df = lg_df
+    min_df = ph_df
+    max_df = lg_df
 else:
-    min_df = lg_df
-    max_df = ph_df
+    min_df = lg_df
+    max_df = ph_df
 
 min_up = resample(
     min_df, 
@@ -416,6 +416,7 @@ plt.savefig(os.path.join(IMG_DIR, "accuracy.png"), dpi=200, bbox_inches="tight")
 plt.close()
 
 print(f"Accuracy plot saved: {IMG_DIR}/accuracy.png")
+
 
 
 
