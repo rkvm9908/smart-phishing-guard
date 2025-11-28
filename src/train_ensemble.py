@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__)) # This is 'src/'
 # Define correct directories based on project structure (src/model/, src/static/)
 MODEL_DIR = os.path.join(BASE_DIR, 'models') 
 IMG_DIR = os.path.join(BASE_DIR, 'static', 'img')
-DATA_FOLDER = os.path.join(BASE_DIR, 'dataset')  # assuming 'dataset' is inside 'src'
+DATA_FOLDER = os.path.join(BASE_DIR, 'dataset') # assuming 'dataset' is inside 'src'
 
 # Create necessary directories
 os.makedirs(MODEL_DIR, exist_ok=True)
@@ -208,6 +208,7 @@ plt.savefig(os.path.join(IMG_DIR, "accuracy.png"), dpi=200, bbox_inches="tight")
 plt.close()
 
 print(f"Accuracy plot saved: {IMG_DIR}/accuracy.png")
+
 
 
 
