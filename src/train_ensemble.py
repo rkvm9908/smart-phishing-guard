@@ -24,7 +24,7 @@ os.makedirs("src/static/img", exist_ok=True)
 # *** உங்கள் புதிய CSV கோப்பு பெயரை இங்கே மாற்றவும் ***
 # Load dataset: Assuming your new CSV has columns: 'url' and 'type'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_FOLDER = os.path.join(BASE_DIR, 'data_chunks') 
+DATA_FOLDER = os.path.join(BASE_DIR, 'data') 
 all_csv_files = glob.glob(os.path.join(DATA_FOLDER, '*.csv'))
 df_list = []
 
@@ -224,6 +224,7 @@ plt.savefig("src/static/img/accuracy.png", dpi=200, bbox_inches="tight")
 plt.close()
 
 print("Accuracy plot saved: src/static/img/accuracy.png")
+
 
 
 
