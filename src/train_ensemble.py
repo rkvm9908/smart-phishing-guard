@@ -41,7 +41,7 @@ print(f"Total rows in combined dataset: {len(df)}")
 
 df.columns = df.columns.str.lower().str.strip()
 df = df.rename(columns={'url': 'URL', 'type': 'label'})
-
+df['label'] = df['label'].astype(str)
 # Map the string labels to their canonical string names (phishing/legit)
 df['label'] = df['label'].str.lower().replace({
     'legitimate': 'legit', 
@@ -188,4 +188,5 @@ metrics = {
 }
 with open("models/ensemble_metrics.json", "w") as f:
     json.dump(metrics, f, indent=4)
+
 
