@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Define correct directories based on project structure (src/model/, src/static/)
 # Note: Changing MODEL_DIR to 'model' as per project structure requirement, not 'models'
-MODEL_DIR = os.path.join(BASE_DIR, 'models') 
+os.makedirs("models", exist_ok=True)
 IMG_DIR = os.path.join(BASE_DIR, 'static', 'img')
 DATA_FOLDER = os.path.join(BASE_DIR, 'dataset') 
 
@@ -183,10 +183,10 @@ print("\nClassification Report:")
 print(classification_report(y_test_enc, preds, target_names=target_names))
 
 # Save model - Corrected Paths (Using MODEL_DIR = 'src/model')
-dump(ensemble, os.path.join(MODEL_DIR, "ensemble_model.joblib")) 
-dump(scaler, os.path.join(MODEL_DIR, "scaler.joblib"))
-dump(le, os.path.join(MODEL_DIR, "label_encoder.joblib"))
-print(f"\nEnsemble model saved: {MODEL_DIR}/ensemble_model.joblib")
+dump(ensemble, "models/ensemble_model.joblib") # Saves the 7-feature model
+dump(scaler, "models/scaler.joblib")
+dump(le, "models/label_encoder.joblib")
+print("\nEnsemble model saved: models/ensemble_model.joblib")
 
 # Save metrics - Corrected Path
 metrics = {
@@ -208,4 +208,5 @@ plt.savefig(os.path.join(IMG_DIR, "accuracy.png"), dpi=200, bbox_inches="tight")
 plt.close()
 
 print(f"Accuracy plot saved: {IMG_DIR}/accuracy.png")
+
 
