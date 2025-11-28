@@ -59,14 +59,10 @@ login_manager.login_view = "login"
 login_manager.init_app(app)
 
 # -------------------------- ML/MODEL LOADING --------------------------
-BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
-
-MODEL_DIR = os.path.join(BASE_DIR, 'models')
-
 try:
-    scaler = load(MODEL_DIR, "scaler.joblib")
-    encoder = load(MODEL_DIR, "label_encoder.joblib")
-    model = load(MODEL_DIR, "ensemble_model.joblib")
+    scaler = load("models/scaler.joblib")
+    encoder = load("models/label_encoder.joblib")
+    model = load("models/ensemble_model.joblib")
     print("ML Models loaded successfully.")
 except FileNotFoundError as e:
     print(f"ERROR: Could not load model component: {e}")
@@ -392,6 +388,7 @@ def static_files(filename):
 if __name__ == "__main__":
     app.run(debug=True)
     
+
 
 
 
