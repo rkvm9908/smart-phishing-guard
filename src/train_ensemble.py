@@ -38,18 +38,25 @@ print(f"Dataset cleaned. Total valid rows: {len(df)}")
 print(f"Total rows in combined dataset: {len(df)}")
 
 df.columns = df.columns.str.lower().str.strip()
-df = df.rename(columns={'url': 'URL', 'type': 'label'})
-df['label'] = df['label'].astype(str)
+if 'url' in df.columns:
+    df = df.rename(columns={'url': 'URL'})
+if 'type' in df.columns:
+    if 'label' in df.columns:
+        df = df.drop(columns=['label']) 
+    df = df.rename(columns={'type': 'label'})
 
-# Map the string labels to their canonical string names (phishing/legit)
-df['label'] = df['label'].str.lower().replace({
+label_data = df['label']
+if isinstance(label_data, pd.DataFrame):
+    label_data = label_data.iloc[:, 0] 
+
+df['label'] = label_data.astype(str).str.lower().str.strip().replace({
     'legitimate': 'legit', 
     'safe': 'legit', 
     'phishing': 'phishing',
     'malicious': 'phishing',
     'bad': 'phishing' 
 })
-# Create the numerical label column based on the string label
+# 4. Numerical conversion
 df['label'] = df['label'].apply(lambda x: 1 if x == 'phishing' else 0)
 
 # CRITICAL STEP: Extract 7 features for all URLs using your function
@@ -196,6 +203,7 @@ plt.ylabel("Accuracy")
 plt.savefig("src/static/img/accuracy.png", dpi=200, bbox_inches="tight")
 plt.close()
 print("Accuracy plot saved: src/static/img/accuracy.png")
+
 
 
 
