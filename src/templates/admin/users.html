@@ -13,7 +13,6 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Admin</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -31,12 +30,6 @@
                     <span class="pred-benign">NO</span>
                     {% endif %}
                 </td>
-                {# Link to view this user's specific logs #}
-                <td>
-                    <a href="{{ url_for('admin_user_logs', user_id=u.id) }}" class="action-link">
-                        <i class="fas fa-file-lines"></i> View Logs
-                    </a>
-                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -49,4 +42,5 @@
 {% block scripts %}
 {{ super() }}
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+
     {% endblock %}
