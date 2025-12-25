@@ -140,13 +140,13 @@ X_test_scaled = scaler.transform(X_test)
 print("\n--- Training Ensemble Model ---")
 # 1. Initialize Base Models (Do NOT fit them separately)
 rf = RandomForestClassifier(
-    n_estimators=350,
+    n_estimators=150,
     max_depth=12,
     random_state=42,
     n_jobs=4
 )
 xgb = XGBClassifier(
-    n_estimators=250,
+    n_estimators=100,
     max_depth=6,
     learning_rate=0.1,
     subsample=0.8,
@@ -203,6 +203,7 @@ plt.ylabel("Accuracy")
 plt.savefig("src/static/img/accuracy.png", dpi=200, bbox_inches="tight")
 plt.close()
 print("Accuracy plot saved: src/static/img/accuracy.png")
+
 
 
 
