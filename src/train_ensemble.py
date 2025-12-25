@@ -42,7 +42,7 @@ df = df.rename(columns={'url': 'URL', 'type': 'label'})
 df['label'] = df['label'].astype(str)
 
 # Map the string labels to their canonical string names (phishing/legit)
-df['label'] = df['label'].str.lower().replace({
+df['label'] = df['label'].astype(str).str.lower().replace({
     'legitimate': 'legit', 
     'safe': 'legit', 
     'phishing': 'phishing',
@@ -196,5 +196,6 @@ plt.ylabel("Accuracy")
 plt.savefig("src/static/img/accuracy.png", dpi=200, bbox_inches="tight")
 plt.close()
 print("Accuracy plot saved: src/static/img/accuracy.png")
+
 
 
